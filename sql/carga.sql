@@ -1,0 +1,152 @@
+SET search_path TO dados_empresas;
+
+-- DOMÍNIO
+
+\copy paises FROM 'C:/rfb/F.K03200$Z.D51108.PAISCSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy municipios FROM 'C:/rfb/F.K03200$Z.D51108.MUNICCSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy naturezas_juridicas FROM 'C:/rfb/F.K03200$Z.D51108.NATJUCSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy qualificacoes_socios FROM 'C:/rfb/F.K03200$Z.D51108.QUALSCSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy motivos FROM 'C:/rfb/F.K03200$Z.D51108.MOTICSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy cnaes FROM 'C:/rfb/F.K03200$Z.D51108.CNAECSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+
+\copy simples FROM 'C:/rfb/F.K03200$W.SIMPLES.CSV.D51108' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+ALTER TABLE simples
+ALTER COLUMN data_opcao_simples TYPE DATE
+USING CASE
+    WHEN data_opcao_simples IN ('00000000', '', '0') THEN NULL
+    ELSE TO_DATE(data_opcao_simples, 'YYYYMMDD')
+END;
+
+ALTER TABLE simples
+ALTER COLUMN data_exclusao_simples TYPE DATE
+USING CASE
+    WHEN data_exclusao_simples IN ('00000000', '', '0') THEN NULL
+    ELSE TO_DATE(data_exclusao_simples, 'YYYYMMDD')
+END;
+
+ALTER TABLE simples
+ALTER COLUMN data_opcao_mei TYPE DATE
+USING CASE
+    WHEN data_opcao_mei IN ('00000000', '', '0') THEN NULL
+    ELSE TO_DATE(data_opcao_mei, 'YYYYMMDD')
+END;
+
+ALTER TABLE simples
+ALTER COLUMN data_exclusao_mei TYPE DATE
+USING CASE
+    WHEN data_exclusao_mei IN ('00000000', '', '0') THEN NULL
+    ELSE TO_DATE(data_exclusao_mei, 'YYYYMMDD')
+END;
+
+
+-- EMPRESAS
+
+ALTER TABLE empresas
+ALTER COLUMN capital_social TYPE TEXT;
+
+\copy empresas FROM 'C:/rfb/K3241.K03200Y0.D51108.EMPRECSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy empresas FROM 'C:/rfb/K3241.K03200Y1.D51108.EMPRECSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy empresas FROM 'C:/rfb/K3241.K03200Y2.D51108.EMPRECSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy empresas FROM 'C:/rfb/K3241.K03200Y3.D51108.EMPRECSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy empresas FROM 'C:/rfb/K3241.K03200Y4.D51108.EMPRECSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy empresas FROM 'C:/rfb/K3241.K03200Y5.D51108.EMPRECSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy empresas FROM 'C:/rfb/K3241.K03200Y6.D51108.EMPRECSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy empresas FROM 'C:/rfb/K3241.K03200Y7.D51108.EMPRECSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy empresas FROM 'C:/rfb/K3241.K03200Y8.D51108.EMPRECSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy empresas FROM 'C:/rfb/K3241.K03200Y9.D51108.EMPRECSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+ALTER TABLE empresas
+ALTER COLUMN capital_social TYPE numeric
+USING REPLACE(capital_social, ',', '.')::numeric;
+
+
+-- ESTABELECIMENTOS
+
+ALTER TABLE estabelecimentos
+ALTER COLUMN data_situacao_cadastral TYPE TEXT;
+
+ALTER TABLE estabelecimentos
+ALTER COLUMN data_inicio_atividade TYPE TEXT;
+
+ALTER TABLE estabelecimentos
+ALTER COLUMN data_situacao_especial TYPE TEXT;
+
+\copy estabelecimentos FROM 'C:/rfb/K3241.K03200Y0.D51108.ESTABELE' WITH (FORMAT csv, DELIMITER ';', QUOTE '"', ENCODING 'LATIN1', NULL '');
+
+\copy estabelecimentos FROM 'C:/rfb/K3241.K03200Y1.D51108.ESTABELE' WITH (FORMAT csv, DELIMITER ';', QUOTE '"', ENCODING 'LATIN1', NULL '');
+
+\copy estabelecimentos FROM 'C:/rfb/K3241.K03200Y2.D51108.ESTABELE' WITH (FORMAT csv, DELIMITER ';', QUOTE '"', ENCODING 'LATIN1', NULL '');
+
+\copy estabelecimentos FROM 'C:/rfb/K3241.K03200Y3.D51108.ESTABELE' WITH (FORMAT csv, DELIMITER ';', QUOTE '"', ENCODING 'LATIN1', NULL '');
+
+\copy estabelecimentos FROM 'C:/rfb/K3241.K03200Y4.D51108.ESTABELE' WITH (FORMAT csv, DELIMITER ';', QUOTE '"', ENCODING 'LATIN1', NULL '');
+
+\copy estabelecimentos FROM 'C:/rfb/K3241.K03200Y5.D51108.ESTABELE' WITH (FORMAT csv, DELIMITER ';', QUOTE '"', ENCODING 'LATIN1', NULL '');
+
+\copy estabelecimentos FROM 'C:/rfb/K3241.K03200Y6.D51108.ESTABELE' WITH (FORMAT csv, DELIMITER ';', QUOTE '"', ENCODING 'LATIN1', NULL '');
+
+\copy estabelecimentos FROM 'C:/rfb/K3241.K03200Y7.D51108.ESTABELE' WITH (FORMAT csv, DELIMITER ';', QUOTE '"', ENCODING 'LATIN1', NULL '');
+
+\copy estabelecimentos FROM 'C:/rfb/K3241.K03200Y8.D51108.ESTABELE' WITH (FORMAT csv, DELIMITER ';', QUOTE '"', ENCODING 'LATIN1', NULL '');
+
+\copy estabelecimentos FROM 'C:/rfb/K3241.K03200Y9.D51108.ESTABELE' WITH (FORMAT csv, DELIMITER ';', QUOTE '"', ENCODING 'LATIN1', NULL '');
+
+ALTER TABLE estabelecimentos
+ALTER COLUMN data_situacao_cadastral TYPE DATE
+USING CASE
+    WHEN data_situacao_cadastral IN ('00000000', '', '0') THEN NULL
+    ELSE TO_DATE(data_situacao_cadastral, 'YYYYMMDD')
+END;
+
+ALTER TABLE estabelecimentos
+ALTER COLUMN data_inicio_atividade TYPE DATE
+USING CASE
+    WHEN data_inicio_atividade IN ('00000000', '', '0') THEN NULL
+    ELSE TO_DATE(data_inicio_atividade, 'YYYYMMDD')
+END;
+
+ALTER TABLE estabelecimentos
+ALTER COLUMN data_situacao_especial TYPE DATE
+USING CASE
+    WHEN data_situacao_especial IN ('00000000', '', '0') THEN NULL
+    ELSE TO_DATE(data_situacao_especial, 'YYYYMMDD')
+END;
+
+
+-- SOCIOS
+
+\copy socios FROM 'C:/rfb/K3241.K03200Y0.D51108.SOCIOCSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy socios FROM 'C:/rfb/K3241.K03200Y1.D51108.SOCIOCSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy socios FROM 'C:/rfb/K3241.K03200Y2.D51108.SOCIOCSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy socios FROM 'C:/rfb/K3241.K03200Y3.D51108.SOCIOCSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy socios FROM 'C:/rfb/K3241.K03200Y4.D51108.SOCIOCSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy socios FROM 'C:/rfb/K3241.K03200Y5.D51108.SOCIOCSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy socios FROM 'C:/rfb/K3241.K03200Y6.D51108.SOCIOCSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy socios FROM 'C:/rfb/K3241.K03200Y7.D51108.SOCIOCSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy socios FROM 'C:/rfb/K3241.K03200Y8.D51108.SOCIOCSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');
+
+\copy socios FROM 'C:/rfb/K3241.K03200Y9.D51108.SOCIOCSV' WITH (FORMAT csv, DELIMITER ';', ENCODING 'LATIN1');

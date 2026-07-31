@@ -1,0 +1,17 @@
+Análise exploratória - Database 2025/11
+  1 – Como classificar o grupo alvo de análise?
+  2 – O que define um CNPJ válido para análise?
+  3 – Filtro de porte confirmado através do código 1 e 3.
+  4 – Colunas principais:
+      CNPJ Básico
+      Identificador matriz e filial
+      Motivo situação cadastral  
+      CNAE principal
+      Data início da atividade
+      Data situação cadastral
+      País
+      UF 
+      Município
+      Situação especial
+      Data situação especial
+      Opção MEI – (Não e em branco)
