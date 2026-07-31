@@ -44,7 +44,6 @@ Para solucionar a fragmentação e detalhar a origem técnica, as fontes de dado
 
 A arquitetura da solução foi projetada para ser altamente eficiente e robusta, utilizando orquestração via script batch (`EXECUTAR.BAT`) e as poderosas capacidades nativas do **PostgreSQL** para todo o processamento de dados (**Medallion Architecture**). A abordagem prioriza o processamento *in-database* (ELT) para garantir máxima performance com grandes volumes de dados.
 
-<img width="2986" height="1408" alt="Diagrama Atualziado" src="https://github.com/user-attachments/assets/41ad67ef-be71-4acd-b0a0-2db6ddbc406c" />
 
 * **Ingestão e Landing Zone (Raw):** O fluxo de dados brutos inicia-se a partir de repositórios locais (`C:/rfb/`), onde se encontram os arquivos compactados (`.zip`) e descompactados (`.csv`). A Landing Zone é constituída por este diretório local, garantindo a linhagem dos dados (*data lineage*) e permitindo o reprocessamento rápido sem a necessidade de novos downloads.
 * **Camada Bronze (Staging Area):** A ingestão é orquestrada por um arquivo `.bat` que aciona um script Python executado via terminal. Através de comandos SQL nativos `\copy`, a tarefa automatizada realiza o carregamento direto dos dados dos arquivos `.csv` para as tabelas de estágio no PostgreSQL. Nesta camada, os dados mantêm sua estrutura original de texto (`LATIN1`) para fins de auditoria.
